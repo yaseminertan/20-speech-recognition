@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: blue;">
+    <div id="words" style="background-color: white;color: blue;"></div>
+</body>
+</html>
+<script>
+   
+    const words=document.getElementById('words');
+    window.SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition;
+    let p=document.createElement('p');
+    words.appendChild(p);
+    
+    const recognition=new SpeechRecognition();
+    recognition.interimResults=true;
+    
+    recognition.addEventListener('result',e => {
+        const wordArray = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('')
+        p.textContent=wordArray;
+    });
+    
+    recognition.start(); 
+
+</script>
